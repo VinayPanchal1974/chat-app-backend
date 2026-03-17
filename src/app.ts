@@ -7,6 +7,7 @@ import helmet from "helmet";
 import cors from "cors";
 import compression from "compression";
 import rateLimit from "express-rate-limit";
+import { UserRouter } from "@src/routes/userRoutes.js";
 
 const app = express();
 
@@ -52,5 +53,9 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     message: err.message || "Internal Server Error",
   });
 });
+
+// Register routes
+const userRouter = new UserRouter();
+app.use("/api", userRouter.router);
 
 export default app;
